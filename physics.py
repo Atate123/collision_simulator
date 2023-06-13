@@ -5,7 +5,7 @@ G = np.array([0,9.81])
 RHO = 1.2466
 CdA = 0.045708296 * 0.54
 
-
+#my change
 class Ball:
     def __init__(self, x0, v0, a0, mass):
         self.x = x0       # m
