@@ -1,27 +1,26 @@
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-##
-def animate_point(points):
-    # Define the list of points
-    fig, ax = plt.subplots()
-    ax.set_xlim(0, 5)  # Adjust the x-axis limits according to your data
-    ax.set_ylim(0, 5)  # Adjust the y-axis limits according to your data
+from driver import animate_point
 
-    # Create an empty plot for the animated point
-    point, = ax.plot([], [], 'ro')
+G = 9.81
 
-    def update_frame(frame):
-        x, y = points[frame]  # Get the coordinates for the current frame
-        point.set_data(x, y)  # Update the point's position
-        return point,
+class Ball:
+    def __init__(self, x0, v0, a0):
+        self.x = x0
+        self.v = v0
+        self.a = a0
 
-    # Create the animation
-    anim = animation.FuncAnimation(fig, update_frame, frames=len(points), interval=16, blit=True)
+    def get_next_position(self):
+        # do some math
 
-    plt.show()
+        return self.x
+ 
 
 def get_points():
-    return [(0,10), (0,9),(0,8),(0,5),(0,2)]
+    myBall = Ball([0,10],[0,0],[0, G])
+    points = []
+    for i in range(10):
+        points.append(myBall.get_next_position())
+    return points
 
-
-animate_point(get_points())
+    
+if __name__ == "__main__":
+    animate_point(get_points())
