@@ -12,7 +12,20 @@ def get_points(time):
         points.append(myBall.get_next_position())
     return points
 
-    
+def get_more_points(time):
+    balls = [ Ball(np.array([2,10.0]), np.array([5.0,0]), np.array([0,0]), 1.0), 
+            Ball(np.array([2,10.0]), np.array([5.0,0]), np.array([0,0]), 2.0),
+            Ball(np.array([2,10.0]), np.array([5.0,0]), np.array([0,0]), 3.0)]
+    points_list = []
+    for ball in balls:
+        points = []
+        for _ in range(int(time / TIME_STEP)):
+            points.append(ball.get_next_position())
+        points_list.append(points)
+    return points_list
+
+
 if __name__ == "__main__":
 
     animate_point(get_points(10))
+
