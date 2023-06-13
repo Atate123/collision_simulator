@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+##
 def animate_point(points):
     # Define the list of points
     fig, ax = plt.subplots()
