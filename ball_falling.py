@@ -6,10 +6,10 @@ import numpy as np
 
 
 def get_points(time):
-    myBall = Ball(np.array([2,10.0]), np.array([5.0,0]), np.array([0,0]), 1.0)
+    myBall = Ball(np.array([-4,10.0]), np.array([25.0,10.0]), np.array([0,0]), 1.0,0)
     points = []
     for i in range(int(time / TIME_STEP)):
-        points.append(myBall.get_next_position())
+        points.append(myBall.get_next_position())   
     return points
 
     

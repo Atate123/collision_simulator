@@ -31,10 +31,14 @@ def animate_point(points):
         elapsed_time = frame * TIME_STEP
         time_text.set_text('Time: {}s'.format(round(elapsed_time,2)))
 
+   
+
         return point, trace_line, time_text
 
-    # Create the animation
     anim = animation.FuncAnimation(fig, update_frame, frames=len(points), interval= 1000 * TIME_STEP, blit=True)
-
-    plt.show()
+    Writer = animation.writers['pillow']
+    writer = Writer(fps=1/TIME_STEP, metadata=dict(artist='Amit Tate'), bitrate=1800)
+    anim.save('animation.gif', writer=writer)
+    
+   # plt.show()
 
