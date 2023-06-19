@@ -34,14 +34,14 @@ def animate_point(points_list):
         elapsed_time = frame * TIME_STEP
         time_text.set_text('Time: {}s'.format(round(elapsed_time,2)))
 
-        return  points + [time_text] + obsticals + trace_lines
+        return  points + [time_text] + trace_lines + obsticals
     
 
     anim = animation.FuncAnimation(fig, update_frame, frames=points_list.shape[1], interval= 1000 * TIME_STEP, blit=True)
     
-    
-    writervideo = animation.FFMpegWriter(fps=int(1/TIME_STEP))
-    anim.save('diffusion_example.mp4', writer=writervideo)
+  #  
+  #  writervideo = animation.FFMpegWriter(fps=int(1/TIME_STEP))
+   # anim.save('diffusion_example.mp4', writer=writervideo)
     
     plt.show()
 

@@ -1,4 +1,4 @@
-from physics import Ball, G, BOUNDS, Ball2
+from physics import Ball, G, BOUNDS, Ball2, Simulation
 from driver import animate_point, TIME_STEP
 import numpy as np
 import random
@@ -38,7 +38,10 @@ def get_points(time):
 
 
 if __name__ == "__main__":
-    points_matrix = get_points(20)
+   # points_matrix = get_points(20)
+    sim = Simulation(10,10)
+    points_matrix = sim.generate_points_matrix()
+    
     print(points_matrix.shape)
 
     animate_point(points_matrix[:,::2,:])

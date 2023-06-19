@@ -1,20 +1,14 @@
 from driver import animate_point, TIME_STEP, BOUNDS
 import numpy as np
+import random
+
 G = np.array([0,9.81])
 RHO = 1.2466
 
 PHYSICS_TIME_STEP = TIME_STEP * 0.5
 
-class Simulation:
-    #1 has list of balls
-    #2 a function to generate list of balls (init)
-    #3 a function to check for collisions 
-    #4 a function to iterate throguh the balls and update their positions
-    
-        # once you do 3 and 4 you can set it up to return one frame every time its called. 
-
-    #
-    pass
+def f():
+    return random.random() * BOUNDS / 1.25 * random.choice([-1,1])
 
 class Ball2:
     def __init__(self, params, mass, CdA):
@@ -38,6 +32,12 @@ class Ball2:
         sum_forces = drag - self.mass * G
         self.a = sum_forces / self.mass  
         return self.x
+    
+    def get_position(self):
+        return self.x
+    
+    def flip_velocity(self):
+        self.v *= 1
 
 class Ball:
     def __init__(self, params, mass, CdA):
@@ -58,5 +58,37 @@ class Ball:
         sum_forces = drag - self.mass * G
         self.a = sum_forces / self.mass  
         return self.x
+    
+    def get_position(self):
+        return self.x
+    
+    def flip_velocity(self):
+        self.v *= 1
  
 
+class Simulation:
+    def __init__(self, number_of_balls,time):
+        self.balls = [Ball2(np.array([[abs(f()), abs(f())],
+                            [4 * f(), 4 *f()],
+                            [0.0, 0.0]]),1.0, 0) for _ in range(number_of_balls)]
+        self.time = time
+    
+    def check_for_collisions(self):
+        for i in range(len(self.balls)):
+            for j in range(i, len(self.balls)):
+                dist = np.linalg.norm(self.balls[i].get_position() - self.balls[j].get_position())
+                if dist < 0.25:
+                    self.balls[i].flip_velocity()
+                    self.balls[j].flip_velocity()
+
+    def generate_points_matrix(self):
+        points_matrix = []
+        for ball in self.balls:
+            points = []
+            for _ in range(int(self.time / TIME_STEP)):
+                # check for collisions
+                self.check_for_collisions()
+                points.append(ball.get_next_position())
+            points_matrix.append(points)
+        return np.array(points_matrix)
+    
